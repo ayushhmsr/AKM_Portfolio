@@ -13,7 +13,7 @@ export default function Footer() {
         AK<span style={{ color: 'var(--accent)' }}>M</span>
       </span>
       <p style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>
-        © 2025 Ayush Kumar Mishra · Built with React
+        © 2025 Ayush Kumar Mishra — All rights reserved.
       </p>
       <div style={{ display: 'flex', gap: '1rem' }}>
         {[
