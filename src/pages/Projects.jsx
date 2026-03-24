@@ -18,7 +18,7 @@ const projects = [
   {
     title: 'Resumify',
     subtitle: 'AI-Powered Resume Builder',
-    url: 'https://resumify-airesume builderr.netlify.app',
+    url: 'https://resumify-airesumebuilderr.netlify.app',
     tags: ['React.js', 'Tailwind CSS', 'Figma', 'Netlify'],
     color: '#7ef0c8',
     emoji: '📄',
