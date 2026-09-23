@@ -1,8 +1,9 @@
-import { Download, ExternalLink, FileText, Sparkles } from 'lucide-react';
+import { Download, ExternalLink, FileText, CheckCircle2, Sparkles, Eye } from 'lucide-react';
 import ScrollReveal from '../components/ScrollReveal';
 
 export default function Resume() {
-  const resumeUrl = '/resume.pdf';
+  // Cache-busted URL so browsers never serve a cached/stale PDF
+  const resumeUrl = '/resume.pdf?v=latest';
 
   return (
     <main style={{ minHeight: '100vh', paddingTop: '95px', paddingBottom: '4.5rem', position: 'relative' }}>
@@ -25,8 +26,8 @@ export default function Resume() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <div
                 style={{
-                  width: '42px',
-                  height: '42px',
+                  width: '44px',
+                  height: '44px',
                   borderRadius: '12px',
                   background: 'rgba(139, 92, 246, 0.12)',
                   border: '1px solid rgba(139, 92, 246, 0.25)',
@@ -37,7 +38,7 @@ export default function Resume() {
                   flexShrink: 0,
                 }}
               >
-                <FileText size={20} />
+                <FileText size={22} />
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.15rem' }}>
@@ -52,7 +53,7 @@ export default function Resume() {
                   </h1>
                   <span className="status-pill" style={{ padding: '0.15rem 0.55rem', fontSize: '0.7rem' }}>
                     <Sparkles size={11} color="#8b5cf6" />
-                    <span>Latest Version</span>
+                    <span>Official Document</span>
                   </span>
                 </div>
                 <p style={{ color: '#64748b', fontSize: '0.8rem' }}>
@@ -70,12 +71,13 @@ export default function Resume() {
                 className="btn-outline-pill"
                 style={{ padding: '0.45rem 1rem', fontSize: '0.8rem' }}
               >
+                <Eye size={13} />
                 <span>Open in Tab</span>
-                <ExternalLink size={13} />
+                <ExternalLink size={12} />
               </a>
 
               <a
-                href={resumeUrl}
+                href="/resume.pdf"
                 download="Ayush_Kumar_Mishra_Resume.pdf"
                 className="btn-dark-pill"
                 style={{ padding: '0.45rem 1.15rem', fontSize: '0.8rem' }}
@@ -87,39 +89,118 @@ export default function Resume() {
           </div>
         </ScrollReveal>
 
-        {/* PDF Document Overview & Viewer */}
+        {/* PDF Document Overview & Viewer Container */}
         <ScrollReveal direction="up" delay={60}>
           <div
             className="editorial-card"
             style={{
               padding: '1rem',
-              background: '#f8fafc',
+              background: '#ffffff',
               border: '1px solid #e2e8f0',
               borderRadius: '20px',
-              overflow: 'hidden',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
             }}
           >
+            {/* Embedded PDF Viewer */}
             <div
               style={{
                 width: '100%',
-                height: '80vh',
-                minHeight: '650px',
+                height: '82vh',
+                minHeight: '680px',
                 borderRadius: '12px',
                 overflow: 'hidden',
-                background: '#ffffff',
+                background: '#f8fafc',
                 border: '1px solid #e2e8f0',
+                position: 'relative',
               }}
             >
-              <iframe
-                src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=1`}
-                title="Ayush Kumar Mishra Resume PDF"
+              <object
+                data={resumeUrl}
+                type="application/pdf"
                 style={{
                   width: '100%',
                   height: '100%',
-                  border: 'none',
+                  display: 'block',
                 }}
-              />
+              >
+                {/* Fallback for browsers that don't support inline object embedding */}
+                <iframe
+                  src={resumeUrl}
+                  title="Ayush Kumar Mishra Resume"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      padding: '2rem',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <FileText size={48} color="#8b5cf6" style={{ marginBottom: '1rem' }} />
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#09090b', marginBottom: '0.5rem' }}>
+                      Ayush Kumar Mishra — Resume
+                    </h3>
+                    <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '400px' }}>
+                      Your browser does not support inline PDF previews. You can view or download the full document directly.
+                    </p>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                      <a href={resumeUrl} target="_blank" rel="noreferrer" className="btn-outline-pill">
+                        Open PDF
+                      </a>
+                      <a href="/resume.pdf" download="Ayush_Kumar_Mishra_Resume.pdf" className="btn-dark-pill">
+                        Download PDF
+                      </a>
+                    </div>
+                  </div>
+                </iframe>
+              </object>
+            </div>
+
+            {/* Bottom Quick Info Bar */}
+            <div
+              style={{
+                marginTop: '0.85rem',
+                padding: '0.65rem 1rem',
+                background: '#f8fafc',
+                borderRadius: '10px',
+                border: '1px solid #e2e8f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                fontSize: '0.75rem',
+                color: '#64748b',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <CheckCircle2 size={13} color="#10b981" />
+                <span>Verified Direct Document from <code>public/resume.pdf</code></span>
+              </div>
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: '#8b5cf6',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                }}
+              >
+                <span>Direct Document Link</span>
+                <ExternalLink size={11} />
+              </a>
             </div>
           </div>
         </ScrollReveal>
