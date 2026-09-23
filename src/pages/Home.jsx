@@ -17,9 +17,9 @@ import { GithubIcon, LinkedinIcon } from '../components/Icons';
 import HeroDeviceMockup from '../components/HeroDeviceMockup';
 import ScrollReveal from '../components/ScrollReveal';
 
-const EMAILJS_SERVICE_ID  = 'service_fw3awjc';   
-const EMAILJS_TEMPLATE_ID = 'template_bqm36u4';  
-const EMAILJS_PUBLIC_KEY  = 'b67KpROsGDCwjgIEr';   
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_fw3awjc';   
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_bqm36u4';  
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'b67KpROsGDCwjgIEr';   
 
 const tickerPills = [
   'REACT.JS & NEXT.JS',
