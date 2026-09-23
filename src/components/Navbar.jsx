@@ -93,7 +93,7 @@ export default function Navbar() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
             <span style={{ color: '#ffffff', fontWeight: 800, fontSize: '0.76rem', letterSpacing: '0.02em', fontFamily: 'var(--font-mono)' }}>
-              AYUSH MISHRA
+              AYUSH K MISHRA
             </span>
             <span style={{ color: 'rgba(255, 255, 255, 0.25)', fontSize: '0.7rem' }}>|</span>
             <span style={{ color: '#94a3b8', fontSize: '0.68rem', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
