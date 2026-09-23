@@ -15,9 +15,8 @@ import {
 import { GithubIcon, LinkedinIcon } from '../components/Icons';
 import ScrollReveal from '../components/ScrollReveal';
 
-const DEFAULT_FILE_ID = '1vbp1cnRO9gLzJdn5JV3LyAPHVoNuKGFi';
-const DEFAULT_PREVIEW_URL  = `https://drive.google.com/file/d/${DEFAULT_FILE_ID}/preview`;
-const DEFAULT_DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${DEFAULT_FILE_ID}`;
+const DEFAULT_DOWNLOAD_URL = '/resume.pdf';
+const DEFAULT_PREVIEW_URL  = '/resume.pdf';
 
 export default function Resume() {
   const [viewMode, setViewMode] = useState('digital'); // 'digital' | 'pdf'
