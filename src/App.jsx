@@ -14,14 +14,18 @@ import Resume from './pages/Resume';
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
+    let timer;
     if (hash) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 80);
     } else {
       window.scrollTo(0, 0);
     }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [pathname, hash]);
   return null;
 }

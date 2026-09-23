@@ -130,6 +130,7 @@ export default function Resume() {
               <iframe
                 src={viewerUrl}
                 title="Ayush Kumar Mishra Resume Viewer"
+                sandbox="allow-scripts allow-popups"
                 style={{
                   width: '100%',
                   height: '100%',

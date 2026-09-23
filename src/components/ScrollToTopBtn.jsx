@@ -49,7 +49,7 @@ export default function ScrollToTopBtn() {
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.85)',
         pointerEvents: visible ? 'auto' : 'none',
-        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)';

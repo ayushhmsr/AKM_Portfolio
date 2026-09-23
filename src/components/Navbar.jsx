@@ -61,7 +61,7 @@ export default function Navbar() {
           alignItems: 'center',
           justifyContent: 'space-between',
           boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.35)' : '0 4px 20px rgba(0, 0, 0, 0.15)',
-          transition: 'all 0.2s ease',
+          transition: 'box-shadow 0.2s ease, background-color 0.2s ease',
         }}
       >
         {/* Brand */}
@@ -129,7 +129,7 @@ export default function Navbar() {
                     fontSize: '0.76rem',
                     fontWeight: 500,
                     textDecoration: 'none',
-                    transition: 'all 0.15s ease',
+                    transition: 'color 0.15s ease, background-color 0.15s ease',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = '#ffffff';
@@ -157,7 +157,7 @@ export default function Navbar() {
                   fontSize: '0.76rem',
                   fontWeight: isActive ? 600 : 500,
                   textDecoration: 'none',
-                  transition: 'all 0.15s ease',
+                  transition: 'color 0.15s ease, background-color 0.15s ease',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#ffffff';
@@ -193,7 +193,7 @@ export default function Navbar() {
               fontSize: '0.74rem',
               textDecoration: 'none',
               boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
-              transition: 'all 0.2s ease',
+              transition: 'background-color 0.2s ease, transform 0.2s ease',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.background = '#e2e8f0')}
             onMouseLeave={(e) => (e.currentTarget.style.background = '#ffffff')}

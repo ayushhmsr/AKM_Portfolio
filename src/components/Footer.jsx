@@ -77,7 +77,7 @@ export default function Footer() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                transition: 'all 0.2s ease',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -100,7 +100,7 @@ export default function Footer() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                transition: 'all 0.2s ease',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
@@ -121,7 +121,7 @@ export default function Footer() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                transition: 'all 0.2s ease',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)')}
               onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)')}
