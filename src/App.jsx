@@ -27,6 +27,17 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  useEffect(() => {
+    // Prevent accidental copying on non-form elements
+    const handleCopy = (e) => {
+      const tag = document.activeElement?.tagName?.toLowerCase();
+      if (tag !== 'input' && tag !== 'textarea') {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener('copy', handleCopy);
+    return () => document.removeEventListener('copy', handleCopy);
+  }, []);
   return (
     <BrowserRouter>
       <ScrollProgressBar />
