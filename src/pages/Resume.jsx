@@ -1,8 +1,22 @@
-import { Download, ExternalLink, FileText, CheckCircle2, Sparkles, Eye } from 'lucide-react';
+import { 
+  Download, 
+  ExternalLink, 
+  FileText, 
+  CheckCircle2, 
+  Sparkles, 
+  Eye, 
+  GraduationCap, 
+  Building2, 
+  Calendar, 
+  Award,
+  Layers,
+  MapPin,
+  Mail
+} from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../components/Icons';
 import ScrollReveal from '../components/ScrollReveal';
 
 export default function Resume() {
-  // Cache-busted URL so browsers never serve a cached/stale PDF
   const resumeUrl = '/resume.pdf?v=latest';
 
   return (
@@ -89,123 +103,221 @@ export default function Resume() {
           </div>
         </ScrollReveal>
 
-        {/* PDF Document Overview & Viewer Container */}
-        <ScrollReveal direction="up" delay={60}>
-          <div
-            className="editorial-card"
-            style={{
-              padding: '1rem',
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '20px',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
-            }}
-          >
-            {/* Embedded PDF Viewer */}
+        {/* ── DESKTOP EMBEDDED PDF VIEWER ── */}
+        <div className="resume-desktop-viewer">
+          <ScrollReveal direction="up" delay={60}>
             <div
+              className="editorial-card"
               style={{
-                width: '100%',
-                height: '82vh',
-                minHeight: '680px',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                background: '#f8fafc',
+                padding: '1rem',
+                background: '#ffffff',
                 border: '1px solid #e2e8f0',
-                position: 'relative',
+                borderRadius: '20px',
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+                marginBottom: '1.5rem',
               }}
             >
-              <object
-                data={resumeUrl}
-                type="application/pdf"
+              <div
                 style={{
                   width: '100%',
-                  height: '100%',
-                  display: 'block',
+                  height: '82vh',
+                  minHeight: '680px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
                 }}
               >
-                {/* Fallback for browsers that don't support inline object embedding */}
                 <iframe
-                  src={resumeUrl}
+                  src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=1`}
                   title="Ayush Kumar Mishra Resume"
                   style={{
                     width: '100%',
                     height: '100%',
                     border: 'none',
                   }}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      padding: '2rem',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <FileText size={48} color="#8b5cf6" style={{ marginBottom: '1rem' }} />
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#09090b', marginBottom: '0.5rem' }}>
-                      Ayush Kumar Mishra — Resume
-                    </h3>
-                    <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '400px' }}>
-                      Your browser does not support inline PDF previews. You can view or download the full document directly.
-                    </p>
-                    <div style={{ display: 'flex', gap: '0.75rem' }}>
-                      <a href={resumeUrl} target="_blank" rel="noreferrer" className="btn-outline-pill">
-                        Open PDF
-                      </a>
-                      <a href="/resume.pdf" download="Ayush_Kumar_Mishra_Resume.pdf" className="btn-dark-pill">
-                        Download PDF
-                      </a>
-                    </div>
-                  </div>
-                </iframe>
-              </object>
+                />
+              </div>
             </div>
+          </ScrollReveal>
+        </div>
 
-            {/* Bottom Quick Info Bar */}
+        {/* ── MOBILE / SMALL DEVICE DOCUMENT OVERVIEW ── */}
+        <div className="resume-mobile-overview">
+          <ScrollReveal direction="up" delay={60}>
             <div
+              className="editorial-card"
               style={{
-                marginTop: '0.85rem',
-                padding: '0.65rem 1rem',
-                background: '#f8fafc',
-                borderRadius: '10px',
+                padding: '1.5rem',
+                background: '#ffffff',
                 border: '1px solid #e2e8f0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '0.5rem',
-                fontSize: '0.75rem',
-                color: '#64748b',
+                borderRadius: '20px',
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+                marginBottom: '1.5rem',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <CheckCircle2 size={13} color="#10b981" />
-                <span>Verified Direct Document from <code>public/resume.pdf</code></span>
+              {/* Document Title Banner */}
+              <div style={{ borderBottom: '2px solid #09090b', paddingBottom: '1rem', marginBottom: '1.25rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#09090b', letterSpacing: '-0.02em', marginBottom: '0.2rem' }}>
+                  AYUSH KUMAR MISHRA
+                </h2>
+                <div style={{ color: '#8b5cf6', fontWeight: 700, fontSize: '0.88rem', marginBottom: '0.65rem' }}>
+                  Software Engineer & Front-End Developer
+                </div>
+                
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', fontSize: '0.78rem', color: '#64748b' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <MapPin size={12} color="#8b5cf6" />
+                    <span>Indore, MP, India</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <Mail size={12} color="#8b5cf6" />
+                    <span>ayushhmsr@gmail.com</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <GithubIcon size={12} />
+                    <span>github.com/ayushhmsr</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <LinkedinIcon size={12} />
+                    <span>linkedin.com/in/ayushkumarmishra2004</span>
+                  </div>
+                </div>
               </div>
-              <a
-                href={resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                style={{
-                  color: '#8b5cf6',
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.25rem',
-                }}
-              >
-                <span>Direct Document Link</span>
-                <ExternalLink size={11} />
-              </a>
+
+              {/* Work Experience */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#09090b', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.35rem', marginBottom: '0.85rem' }}>
+                  Work Experience
+                </h3>
+
+                {/* Role 1 */}
+                <div style={{ marginBottom: '1.15rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.25rem' }}>
+                    <div>
+                      <span style={{ fontWeight: 800, fontSize: '0.9rem', color: '#09090b' }}>Web Developer</span>
+                      <span style={{ color: '#8b5cf6', fontWeight: 700, fontSize: '0.85rem', marginLeft: '0.45rem' }}>• IIMaspirant.in</span>
+                    </div>
+                    <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#64748b', fontWeight: 600 }}>Jul 2026 – Present</span>
+                  </div>
+                  <ul style={{ paddingLeft: '1.15rem', fontSize: '0.8rem', color: '#52525b', lineHeight: 1.55, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <li>Established official responsive web presence for an ed-tech platform using React.js and Tailwind CSS.</li>
+                    <li>Translated full UI/UX designs into responsive React components using Google Stitch and Tailwind CSS.</li>
+                    <li>Secured user registration and login flows with JWT authentication and OTP email verification with Nodemailer.</li>
+                    <li>Deployed production single-page application using React, Vite, Clerk auth, and React Router.</li>
+                  </ul>
+                </div>
+
+                {/* Role 2 */}
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.25rem' }}>
+                    <div>
+                      <span style={{ fontWeight: 800, fontSize: '0.9rem', color: '#09090b' }}>Front-End Development Intern</span>
+                      <span style={{ color: '#8b5cf6', fontWeight: 700, fontSize: '0.85rem', marginLeft: '0.45rem' }}>• CodSoft</span>
+                    </div>
+                    <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#64748b', fontWeight: 600 }}>Feb 2025 – Mar 2025</span>
+                  </div>
+                  <ul style={{ paddingLeft: '1.15rem', fontSize: '0.8rem', color: '#52525b', lineHeight: 1.55, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <li>Shipped responsive, cloud-hosted single-page application features using JavaScript and React.js.</li>
+                    <li>Tested across 3+ browsers (Chrome, Firefox, Safari) and resolved 15+ UI bugs before deployment.</li>
+                    <li>Refactored 10+ React components to optimize page-load performance and responsive layout.</li>
+                    <li>Delivered 4+ UI features from Figma specifications collaborating closely with design.</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Projects */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#09090b', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.35rem', marginBottom: '0.85rem' }}>
+                  Featured Projects
+                </h3>
+
+                <div style={{ marginBottom: '0.95rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
+                    <span style={{ fontWeight: 800, fontSize: '0.88rem', color: '#09090b' }}>CoinScope — Cryptocurrency Tracking Platform</span>
+                    <a href="https://coinscopee.netlify.app" target="_blank" rel="noreferrer" style={{ fontSize: '0.72rem', color: '#8b5cf6', fontWeight: 700, textDecoration: 'none' }}>Live Site ↗</a>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', color: '#52525b', lineHeight: 1.55 }}>
+                    Real-time crypto tracker built with React.js & Tailwind CSS. Integrated CoinGecko REST API for 50+ tokens, 6+ dashboard widgets, responsive across 3 breakpoints.
+                  </p>
+                </div>
+
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
+                    <span style={{ fontWeight: 800, fontSize: '0.88rem', color: '#09090b' }}>Resumify — AI Resume Builder</span>
+                    <a href="https://resumify-airesumebuilderr.netlify.app" target="_blank" rel="noreferrer" style={{ fontSize: '0.72rem', color: '#8b5cf6', fontWeight: 700, textDecoration: 'none' }}>Live Site ↗</a>
+                  </div>
+                  <p style={{ fontSize: '0.8rem', color: '#52525b', lineHeight: 1.55 }}>
+                    Cloud-hosted React SPA with reusable modular components for dynamic formatting and export. Reduced workflow to &lt; 5 mins with cross-browser testing.
+                  </p>
+                </div>
+              </div>
+
+              {/* Technical Skills */}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#09090b', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.35rem', marginBottom: '0.65rem' }}>
+                  Technical Skills
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.8rem', color: '#52525b' }}>
+                  <div><strong>Languages:</strong> JavaScript (ES6+), HTML5, CSS3, Java</div>
+                  <div><strong>Frontend:</strong> React.js, Next.js, Tailwind CSS, React Router, Responsive Design, SPA Architecture</div>
+                  <div><strong>APIs & Auth:</strong> RESTful APIs, JWT Authentication, Nodemailer OTP, Clerk, Web Performance QA</div>
+                  <div><strong>Backend & Tools:</strong> Node.js, Express.js, MongoDB, Git, GitHub, Vite, Figma, Google Stitch, Netlify, Vercel</div>
+                </div>
+              </div>
+
+              {/* Education & Certifications */}
+              <div>
+                <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#09090b', textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '1px solid #e2e8f0', paddingBottom: '0.35rem', marginBottom: '0.65rem' }}>
+                  Education & Certifications
+                </h3>
+                <div style={{ fontSize: '0.8rem', color: '#52525b', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                  <div>
+                    <strong>IPS Academy, Indore (RGPV Bhopal)</strong> — B.Tech in Computer Science (AI & ML), 4th Year Senior (Sep 2023 – Sep 2027)
+                  </div>
+                  <div>
+                    <strong>Meta</strong>: Advanced React (ID: <code>TAGZAOOSH1X3</code>) • <strong>Board Infinity</strong>: Java Programming (ID: <code>6NY6HFE5OOTB</code>)
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile 1-Tap Download Button */}
+              <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0', display: 'flex', gap: '0.65rem' }}>
+                <a
+                  href="/resume.pdf"
+                  download="Ayush_Kumar_Mishra_Resume.pdf"
+                  className="btn-dark-pill"
+                  style={{ width: '100%', justifyContent: 'center', padding: '0.65rem', fontSize: '0.85rem' }}
+                >
+                  <Download size={15} />
+                  <span>Download PDF Document</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
       </div>
+
+      <style>{`
+        /* Desktop viewer: displayed on tablet and desktop screens */
+        .resume-desktop-viewer {
+          display: block;
+        }
+        /* Mobile overview: displayed on phones/small screens */
+        .resume-mobile-overview {
+          display: none;
+        }
+
+        @media (max-width: 768px) {
+          .resume-desktop-viewer {
+            display: none !important;
+          }
+          .resume-mobile-overview {
+            display: block !important;
+          }
+        }
+      `}</style>
     </main>
   );
 }
