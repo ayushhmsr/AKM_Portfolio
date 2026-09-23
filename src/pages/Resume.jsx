@@ -139,7 +139,7 @@ export default function Resume() {
               />
             </div>
 
-            {/* Bottom Quick Info & Auto-Sync Bar */}
+            {/* Bottom Status Bar */}
             <div
               style={{
                 marginTop: '0.75rem',
@@ -158,26 +158,7 @@ export default function Resume() {
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <CheckCircle2 size={13} color="#10b981" />
-                <span>Direct Visual Overview • Linked to <code>public/resume.pdf</code></span>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    color: '#8b5cf6',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem',
-                  }}
-                >
-                  <span>Raw PDF File</span>
-                  <ExternalLink size={11} />
-                </a>
+                <span>Official Curriculum Vitae • Full-Time Opportunities</span>
               </div>
             </div>
           </div>
