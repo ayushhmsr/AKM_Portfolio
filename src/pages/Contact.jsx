@@ -1,46 +1,79 @@
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-
+import { 
+  Mail, 
+  Send, 
+  Check, 
+  Copy, 
+  MapPin, 
+  Clock, 
+  ArrowUpRight,
+  MessageSquare,
+  Terminal
+} from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../components/Icons';
+import ScrollReveal from '../components/ScrollReveal';
 
 const EMAILJS_SERVICE_ID  = 'service_fw3awjc';   
 const EMAILJS_TEMPLATE_ID = 'template_bqm36u4';  
 const EMAILJS_PUBLIC_KEY  = 'b67KpROsGDCwjgIEr';   
 
 const socials = [
-  { label: 'GitHub',   handle: '@ayushhmsr',             url: 'https://github.com/ayushhmsr',                         color: '#c8f04d' },
-  { label: 'LinkedIn', handle: 'ayushkumarmishra2004',    url: 'https://linkedin.com/in/ayushkumarmishra2004',          color: '#7ef0c8' },
-  { label: 'Email',    handle: 'ayushhmsr@gmail.com',     url: 'mailto:ayushhmsr@gmail.com',                           color: '#f0a87e' },
+  { 
+    label: 'GitHub',   
+    handle: 'github.com/ayushhmsr',             
+    url: 'https://github.com/ayushhmsr',                         
+    icon: GithubIcon,
+  },
+  { 
+    label: 'LinkedIn', 
+    handle: 'linkedin.com/in/ayushkumarmishra2004',    
+    url: 'https://linkedin.com/in/ayushkumarmishra2004',          
+    icon: LinkedinIcon,
+  },
+  { 
+    label: 'Direct Email',    
+    handle: 'ayushhmsr@gmail.com',     
+    url: 'mailto:ayushhmsr@gmail.com',                           
+    icon: Mail,
+  },
 ];
 
 const inputBase = {
   width: '100%',
-  background: 'var(--bg)',
+  background: 'rgba(7, 7, 9, 0.7)',
   border: '1px solid var(--border)',
-  borderRadius: '10px',
-  padding: '0.9rem 1.1rem',
+  borderRadius: '8px',
+  padding: '0.75rem 0.95rem',
   color: 'var(--text)',
-  fontSize: '0.9rem',
+  fontSize: '0.86rem',
   fontFamily: 'var(--font-body)',
   outline: 'none',
-  transition: 'border-color 0.2s',
+  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
 };
 
 export default function Contact() {
   const formRef = useRef(null);
   const [form, setForm] = useState({ from_name: '', from_email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [status, setStatus] = useState('idle');
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async e => {
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('ayushhmsr@gmail.com');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
 
-    // If EmailJS not configured yet → fallback to mailto
     if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
       const { from_name, from_email, subject, message } = form;
       window.open(
-        `mailto:ayushhmsr@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Contact')}&body=${encodeURIComponent(`Name: ${from_name}\nEmail: ${from_email}\n\n${message}`)}`,
+        `mailto:ayushhmsr@gmail.com?subject=${encodeURIComponent(subject || 'Software Engineering Inquiry')}&body=${encodeURIComponent(`Name: ${from_name}\nEmail: ${from_email}\n\n${message}`)}`,
         '_blank'
       );
       setStatus('success');
@@ -60,169 +93,348 @@ export default function Contact() {
       setForm({ from_name: '', from_email: '', subject: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (err) {
-      console.error(err);
+      console.error('Email send failed:', err);
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 4000);
+      setTimeout(() => setStatus('idle'), 4500);
     }
   };
 
-  const btnLabel = { idle: 'Send Message →', sending: 'Sending...', success: '✓ Message Sent!', error: '✗ Failed — try again' }[status];
-  const btnBg    = { idle: 'var(--accent)', sending: '#888', success: 'var(--accent2)', error: '#f07e7e' }[status];
-
   return (
-    <main style={{ minHeight: '100vh', paddingTop: '100px', paddingBottom: '5rem' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 2rem' }}>
-
+    <main style={{ minHeight: '100vh', paddingTop: '100px', paddingBottom: '4.5rem', position: 'relative' }}>
+      <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
+        
         {/* Header */}
-        <div style={{ marginBottom: '5rem', animation: 'fadeUp 0.6s ease both' }}>
-          <p style={{ color: 'var(--accent)', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1rem' }}>Get In Touch</p>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.95, letterSpacing: '-0.03em', marginBottom: '1.5rem' }}>
-            Let's Work<br /><span style={{ color: 'var(--accent)' }}>Together</span>
-          </h1>
-          <p style={{ color: 'var(--muted)', maxWidth: '500px', fontSize: '1rem', lineHeight: 1.7 }}>
-            Looking for a frontend developer or UI/UX designer for your team? I'm actively seeking internship opportunities — let's talk!
-          </p>
-        </div>
+        <ScrollReveal direction="up" delay={0}>
+          <div style={{ maxWidth: '720px', marginBottom: '3rem' }}>
+            <div className="badge badge-indigo" style={{ marginBottom: '0.85rem' }}>
+              <Terminal size={12} />
+              <span>Initiate Contact</span>
+            </div>
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.85rem, 3.2vw, 2.5rem)',
+                fontWeight: 800,
+                lineHeight: 1.15,
+                letterSpacing: '-0.025em',
+                marginBottom: '0.75rem',
+              }}
+            >
+              Let's Connect & <span className="gradient-text">Collaborate</span>
+            </h1>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.65 }}>
+              I am currently in my 4th year and actively seeking full-time Software Engineer & Frontend Developer opportunities. Have an open role, project proposal, or just want to chat engineering? Drop a message below.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-
-          {/* ── Contact Form ── */}
-          <div style={{ animation: 'fadeUp 0.6s ease both', animationDelay: '0.1s' }}>
-            <div style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--border)',
-              borderRadius: '20px',
-              padding: '2.5rem',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, var(--accent), var(--accent2), transparent)' }} />
-
-              <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.2rem', marginBottom: '1.75rem', letterSpacing: '-0.02em' }}>Send a Message</h2>
-
-              <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                  <div>
-                    <label style={{ fontSize: '0.72rem', color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem' }}>Your Name</label>
-                    <input name="from_name" value={form.from_name} onChange={handleChange}
-                      placeholder="John Doe" required style={inputBase}
-                      onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-                      onBlur={e => e.target.style.borderColor = 'var(--border)'} />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.72rem', color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem' }}>Your Email</label>
-                    <input name="from_email" type="email" value={form.from_email} onChange={handleChange}
-                      placeholder="you@company.com" required style={inputBase}
-                      onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-                      onBlur={e => e.target.style.borderColor = 'var(--border)'} />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '0.72rem', color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem' }}>Subject</label>
-                  <input name="subject" value={form.subject} onChange={handleChange}
-                    placeholder="Frontend Internship Opportunity" style={inputBase}
-                    onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-                    onBlur={e => e.target.style.borderColor = 'var(--border)'} />
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '0.72rem', color: 'var(--muted)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '0.4rem' }}>Message</label>
-                  <textarea name="message" value={form.message} onChange={handleChange}
-                    placeholder="Tell me about the role or project you have in mind..." required rows={6}
-                    style={{ ...inputBase, resize: 'vertical', minHeight: '150px' }}
-                    onFocus={e => e.target.style.borderColor = 'var(--accent)'}
-                    onBlur={e => e.target.style.borderColor = 'var(--border)'} />
-                </div>
-
-                <button type="submit" disabled={status === 'sending'}
+        {/* ── TWO COLUMN LAYOUT ── */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '1.75rem',
+          }}
+        >
+          {/* Form Container */}
+          <ScrollReveal direction="up" delay={80}>
+            <div
+              className="dev-card"
+              style={{
+                padding: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+                height: '100%',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+                <MessageSquare size={17} color="var(--accent)" />
+                <h2
                   style={{
-                    width: '100%', padding: '1rem',
-                    background: btnBg,
-                    color: status === 'idle' ? '#0a0a0f' : status === 'sending' ? '#fff' : '#0a0a0f',
-                    fontFamily: 'var(--font-display)', fontWeight: 700,
-                    fontSize: '0.95rem', border: 'none', borderRadius: '10px',
-                    cursor: status === 'sending' ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s', letterSpacing: '0.02em',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    color: 'var(--text)',
                   }}
-                >{btnLabel}</button>
+                >
+                  Send a Message
+                </h2>
+              </div>
 
-                {/* EmailJS setup hint */}
-                {EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' && (
-                  <p style={{ fontSize: '0.75rem', color: 'var(--muted)', textAlign: 'center', lineHeight: 1.5 }}>
-                    💡 Currently opens your mail app. To enable direct sending, set up{' '}
-                    <a href="https://www.emailjs.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent)' }}>EmailJS</a>
-                    {' '}(free) and replace the IDs in Contact.jsx.
-                  </p>
-                )}
+              <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.85rem' }}>
+                  <div>
+                    <label style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: '0.35rem' }}>
+                      Your Name
+                    </label>
+                    <input
+                      name="from_name"
+                      value={form.from_name}
+                      onChange={handleChange}
+                      placeholder="Jane Doe"
+                      required
+                      style={inputBase}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--accent)';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(99, 102, 241, 0.15)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--border)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: '0.35rem' }}>
+                      Your Email
+                    </label>
+                    <input
+                      name="from_email"
+                      type="email"
+                      value={form.from_email}
+                      onChange={handleChange}
+                      placeholder="jane@company.com"
+                      required
+                      style={inputBase}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--accent)';
+                        e.target.style.boxShadow = '0 0 0 2px rgba(99, 102, 241, 0.15)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--border)';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: '0.35rem' }}>
+                    Subject
+                  </label>
+                  <input
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    placeholder="Software Engineer Opportunity / Project Inquiry"
+                    style={inputBase}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'var(--accent)';
+                      e.target.style.boxShadow = '0 0 0 2px rgba(99, 102, 241, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'var(--border)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '0.72rem', color: 'var(--muted)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', display: 'block', marginBottom: '0.35rem' }}>
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about the engineering role, project requirements, or team..."
+                    required
+                    rows={4}
+                    style={{ ...inputBase, resize: 'vertical', minHeight: '110px' }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = 'var(--accent)';
+                      e.target.style.boxShadow = '0 0 0 2px rgba(99, 102, 241, 0.15)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = 'var(--border)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className="btn-primary"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    justifyContent: 'center',
+                    fontSize: '0.85rem',
+                    cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {status === 'sending' ? (
+                    <span>Sending message...</span>
+                  ) : status === 'success' ? (
+                    <>
+                      <Check size={15} />
+                      <span>Message Sent Successfully!</span>
+                    </>
+                  ) : status === 'error' ? (
+                    <span>Failed to send — Please use direct email</span>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Send size={14} />
+                    </>
+                  )}
+                </button>
               </form>
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* ── Right panel ── */}
-          <div style={{ animation: 'fadeUp 0.6s ease both', animationDelay: '0.2s', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
-            {/* Direct email highlight */}
-            <div style={{
-              padding: '1.75rem',
-              background: 'rgba(200,240,77,0.05)',
-              border: '1px solid rgba(200,240,77,0.2)',
-              borderRadius: '16px',
-            }}>
-              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.85rem', color: 'var(--accent)', marginBottom: '0.5rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Direct Email</p>
-              <a href="mailto:ayushhmsr@gmail.com"
-                style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.15rem', color: 'var(--text)', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = 'var(--accent)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'var(--text)'}
-              >ayushhmsr@gmail.com ↗</a>
-              <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '0.4rem' }}>I typically reply within 24 hours.</p>
-            </div>
-
-            {/* Socials */}
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', letterSpacing: '-0.01em', color: 'var(--muted)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '0.1em' }}>Find Me Online</h2>
-            {socials.map(s => (
-              <a key={s.label} href={s.url} target="_blank" rel="noreferrer"
+          {/* Right Info Column */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            
+            {/* Quick Email Box */}
+            <ScrollReveal direction="up" delay={120}>
+              <div
+                className="dev-card"
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '1.25rem',
-                  padding: '1.1rem 1.4rem',
-                  background: 'var(--surface)', border: '1px solid var(--border)',
-                  borderRadius: '14px', transition: 'all 0.2s', textDecoration: 'none',
+                  padding: '1.5rem',
+                  border: '1px solid rgba(99, 102, 241, 0.25)',
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, #101117 100%)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = s.color + '55'; e.currentTarget.style.transform = 'translateX(4px)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateX(0)'; }}
               >
-                <div style={{ width: '38px', height: '38px', borderRadius: '10px', background: s.color + '18', border: `1px solid ${s.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <span style={{ color: s.color, fontSize: '0.72rem', fontWeight: 700, fontFamily: 'var(--font-display)' }}>{s.label.slice(0,2).toUpperCase()}</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    Direct Email
+                  </span>
+                  <button
+                    onClick={handleCopyEmail}
+                    className="btn-secondary"
+                    style={{
+                      padding: '0.2rem 0.6rem',
+                      fontSize: '0.72rem',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {copiedEmail ? <Check size={12} /> : <Copy size={12} />}
+                    <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
+                  </button>
                 </div>
-                <div>
-                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.88rem', color: s.color, marginBottom: '0.1rem' }}>{s.label}</div>
-                  <div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>{s.handle}</div>
-                </div>
-                <span style={{ marginLeft: 'auto', color: 'var(--muted)' }}>↗</span>
-              </a>
-            ))}
 
-            {/* Availability */}
-            <div style={{
-              padding: '1.5rem 1.75rem',
-              border: '1px solid var(--border)',
-              borderRadius: '14px',
-              background: 'var(--surface)',
-              marginTop: 'auto',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--accent)', display: 'inline-block', animation: 'pulse 2s infinite' }} />
-                <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem', color: 'var(--accent)' }}>Available for Internship</span>
+                <a
+                  href="mailto:ayushhmsr@gmail.com"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '1.05rem',
+                    fontWeight: 700,
+                    color: 'var(--text)',
+                    textDecoration: 'none',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text)')}
+                >
+                  <span>ayushhmsr@gmail.com</span>
+                  <ArrowUpRight size={15} />
+                </a>
+
+                <p style={{ color: 'var(--muted)', fontSize: '0.76rem', marginTop: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Clock size={12} />
+                  <span>Typical response time: within 24 hours</span>
+                </p>
               </div>
-              <p style={{ color: 'var(--muted)', fontSize: '0.84rem', lineHeight: 1.6 }}>
-                Seeking Frontend Developer, UI/UX Designer, or DevOps roles. Open to remote and Indore-based opportunities.
-              </p>
-            </div>
+            </ScrollReveal>
+
+            {/* Social Channels List */}
+            <ScrollReveal direction="up" delay={160}>
+              <div>
+                <p
+                  style={{
+                    color: 'var(--muted)',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    marginBottom: '0.65rem',
+                  }}
+                >
+                  Connect on Developer Platforms
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                  {socials.map((s) => {
+                    const Icon = s.icon;
+                    return (
+                      <a
+                        key={s.label}
+                        href={s.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="dev-card dev-card-interactive"
+                        style={{
+                          padding: '0.85rem 1.15rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                          <div
+                            style={{
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: 'rgba(255, 255, 255, 0.04)',
+                              border: '1px solid var(--border)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: 'var(--text)',
+                              flexShrink: 0,
+                            }}
+                          >
+                            <Icon size={16} />
+                          </div>
+                          <div>
+                            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.85rem', color: 'var(--text)' }}>
+                              {s.label}
+                            </div>
+                            <div style={{ color: 'var(--muted)', fontSize: '0.74rem' }}>{s.handle}</div>
+                          </div>
+                        </div>
+                        <ArrowUpRight size={14} style={{ color: 'var(--muted)' }} />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Status Card */}
+            <ScrollReveal direction="up" delay={200}>
+              <div
+                className="dev-card"
+                style={{
+                  padding: '1rem 1.25rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.78rem' }}>
+                  <MapPin size={13} color="var(--accent)" />
+                  <span>Indore, MP, India (Open to Relocation)</span>
+                </div>
+                <div className="badge badge-emerald">
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#34d399', display: 'inline-block' }} />
+                  <span>Available for Full-Time</span>
+                </div>
+              </div>
+            </ScrollReveal>
 
           </div>
         </div>
+
       </div>
-      <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
     </main>
   );
 }

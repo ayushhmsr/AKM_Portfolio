@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollProgressBar from './components/ScrollProgressBar';
+import ScrollToTopBtn from './components/ScrollToTopBtn';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -10,14 +12,24 @@ import Contact from './pages/Contact';
 import Resume from './pages/Resume';
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 80);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
   return null;
 }
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollProgressBar />
       <ScrollToTop />
       <Navbar />
       <Routes>
@@ -28,6 +40,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/resume" element={<Resume />} />
       </Routes>
+      <ScrollToTopBtn />
       <Footer />
     </BrowserRouter>
   );
