@@ -66,9 +66,7 @@ export default function ScrollReveal({
         ...style,
         opacity: isVisible ? 1 : 0,
         transform: getTransform(),
-        filter: isVisible ? 'blur(0px)' : 'blur(4px)',
-        transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, filter ${duration}ms ease ${delay}ms`,
-        willChange: 'opacity, transform, filter',
+        transition: `opacity ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, transform ${duration}ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
       }}
     >
       {children}
