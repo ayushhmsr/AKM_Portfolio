@@ -17,9 +17,9 @@ import { GithubIcon, LinkedinIcon } from '../components/Icons';
 import HeroDeviceMockup from '../components/HeroDeviceMockup';
 import ScrollReveal from '../components/ScrollReveal';
 
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_fw3awjc';   
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_bqm36u4';  
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'b67KpROsGDCwjgIEr';   
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;   
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;  
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const tickerPills = [
   'REACT.JS & NEXT.JS',
@@ -59,7 +59,7 @@ export default function Home() {
     e.preventDefault();
     setStatus('sending');
 
-    if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
       const { from_name, from_email, inquiry_focus, message } = form;
       window.open(
         `mailto:ayushhmsr@gmail.com?subject=${encodeURIComponent(inquiry_focus || 'Software Engineering Inquiry')}&body=${encodeURIComponent(`Name: ${from_name}\nEmail: ${from_email}\nFocus: ${inquiry_focus}\n\n${message}`)}`,
